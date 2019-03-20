@@ -34,7 +34,9 @@ class Board extends Component {
   constructor(props) {
     super(props);
 
-    // TODO: set initial state
+    this.state = {
+      board: this.createBoard(),
+    }
   }
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
@@ -42,6 +44,15 @@ class Board extends Component {
   createBoard() {
     let board = [];
     // TODO: create array-of-arrays of true/false values
+    // random function to determine lit or unlit (rand, =< .5 unlit, > .5)
+    for (let j = 0; j < 5; j++){
+      let row = [];
+      for (let i = 0; i < 5; i++){
+        let light = Math.random() <= 0.5 ? true : false
+        row.push(light);
+      }
+      board.push(row);
+    }
     return board
   }
 
