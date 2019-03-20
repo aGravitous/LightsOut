@@ -33,7 +33,6 @@ class Board extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       board: this.createBoard(),
     }
@@ -92,6 +91,7 @@ class Board extends Component {
     // make table board
 
     // TODO
+    return console.log("ey")
   }
 }
 
