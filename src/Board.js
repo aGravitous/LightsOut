@@ -31,22 +31,26 @@ import './Board.css';
 
 class Board extends Component {
 
+  static defaultProps = {
+    nrows: 5,
+    ncols: 5
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       board: this.createBoard(),
+      hasWon: false
     }
   }
 
-  /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
+  /** creates a board nrows high/ncols wide, each cell randomly lit or unlit */
 
   createBoard() {
     let board = [];
-    // TODO: create array-of-arrays of true/false values
-    // random function to determine lit or unlit (rand, =< .5 unlit, > .5)
-    for (let j = 0; j < 5; j++){
+    for (let j = 0; j < this.props.nrows; j++){
       let row = [];
-      for (let i = 0; i < 5; i++){
+      for (let i = 0; i < this.props.ncols; i++){
         let light = Math.random() <= 0.5 ? true : false
         row.push(light);
       }
@@ -61,7 +65,7 @@ class Board extends Component {
     let {ncols, nrows} = this.props;
     let board = this.state.board;
     let [y, x] = coord.split("-").map(Number);
-
+    let hasWon = this.state.hasWon;
 
     function flipCell(y, x) {
       // if this coord is actually on board, flip it
@@ -71,10 +75,18 @@ class Board extends Component {
       }
     }
 
-    // TODO: flip this cell and the cells around it
+    // Flips clicked cell and cardinal direction neighbors
+    // Janky: needs refactoring when we're clever.
+
+    flipCell(y, x);
+    flipCell((y + 1), x);
+    flipCell((y -1), x);
+    flipCell(y, (x + 1));
+    flipCell(y, (x - 1));
 
     // win when every cell is turned off
-    // TODO: determine is the game has been won
+
+    board.flat().includes(true) ? hasWon = false : hasWon = true;
 
     this.setState({board, hasWon});
   }
@@ -91,7 +103,10 @@ class Board extends Component {
     // make table board
 
     // TODO
-    return console.log("ey")
+
+    // Pass flipCellsAround to Cell as flipCellsAroundMe.
+    debugger;
+    return null;
   }
 }
 
