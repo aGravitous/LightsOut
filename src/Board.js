@@ -98,15 +98,43 @@ class Board extends Component {
 
     // if the game is won, just show a winning msg & render nothing else
 
-    // TODO
+    if (this.state.hasWon){
+      return <div><p>"you won!"</p></div>
+    } else {
+      
+      // loop over each col
+      // let board = this.state.board
+      // const rows = (() => {
+      //   return board.map((r, i) => {
+      //     return r.map((c, j) => {
+      //       return <Cell isLit={this.state.board[i][j]}/>
+      //     })
+      //   })
+      // })
+
+      let tblBoard = [];
+      let board = this.state.board
+      for (var i = 0; i < board.length; i++){
+        let row = [];
+        for (var j = 0; j < board[i].length; j++){
+          let coord = `${i}-${j}`;
+          row.push(<Cell key={ coord } isLit={ board[i][j] } flipCellsAroundMe={ () => this.flipCellsAround(coord) }/>);
+        }
+        tblBoard.push(<tr key={ i }>{ row }</tr>)
+      }
+
+      return (
+          <table className="Board">
+            <tbody>{ tblBoard }</tbody>
+          </table>
+      );
+    }
 
     // make table board
 
     // TODO
 
     // Pass flipCellsAround to Cell as flipCellsAroundMe.
-    debugger;
-    return null;
   }
 }
 
